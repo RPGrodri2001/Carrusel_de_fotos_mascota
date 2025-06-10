@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Carrusel Profesional de Mascota</title>
+
+  <!-- ======  ESTILOS  ====== -->
+  <style>
+  /* Reset básico */
+  *{margin:0;padding:0;box-sizing:border-box}
+
+  body{
+    background:linear-gradient(135deg,#e0f7fa,#80deea);
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px
+  }
+
+  .carousel-container{
+    max-width:760px;width:100%;
+    background:#fff;border-radius:15px;
+    box-shadow:0 12px 40px rgba(0,0,0,.15);
+    padding:20px 30px 60px;   /* + espacio al pie para botones extra */
+    text-align:center;position:relative
+  }
+
+  .title{
+    margin-bottom:25px;color:#006064;font-weight:700;
+    font-size:2.2rem;letter-spacing:1px;
+    text-shadow:0 2px 6px rgba(0,0,0,.1)
+  }
+
+  /* === Carrusel === */
+  .carousel{position:relative;overflow:hidden;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,.1)}
+  .carousel-inner{display:flex}
+  .carousel-item{
+    min-width:100%;user-select:none;pointer-events:none;
+    opacity:0;transition:opacity .6s ease-in-out;
+    position:absolute;top:0;left:0
+  }
+  .carousel-item.active{opacity:1;position:relative;pointer-events:auto}
+  .carousel-item img{
+    width:100%;height:440px;object-fit:cover;border-radius:15px;
+    box-shadow:0 6px 18px rgba(0,0,0,.12);user-select:none;cursor:zoom-in
+  }
+
+  /* Botones flecha */
+  .carousel-btn{
+    position:absolute;top:50%;transform:translateY(-50%);
+    background:rgba(0,96,100,.6);border:none;color:#fff;
+    font-size:2.8rem;padding:6px 16px;border-radius:50%;
+    cursor:pointer;transition:background .3s ease;user-select:none;z-index:10
+  }
+  .carousel-btn:hover{background:#004d40}
+  .prev{left:15px}.next{right:15px}
+
+  /* Indicadores dots */
+  .carousel-indicators{
+    margin-top:18px;display:flex;justify-content:center;gap:12px
+  }
+  .carousel-indicators button{
+    width:14px;height:14px;border-radius:50%;border:none;
+    background:#b2dfdb;cursor:pointer;transition:background .3s ease
+  }
+  .carousel-indicators button.active{background:#006064}
+
+  /* Botones extra (play/pause y fullscreen) */
+  .extra-controls{
+    position:absolute;bottom:18px;right:30px;display:flex;gap:14px;z-index:20
+  }
+  .extra-btn{
+    background:#006064;border:none;color:#fff;width:44px;height:44px;
+    font-size:1.4rem;border-radius:50%;display:flex;justify-content:center;align-items:center;
+    cursor:pointer;transition:background .3s ease
+  }
+  .extra-btn:hover{background:#004d40}
+
+  /* Responsive */
+  @media(max-width:768px){.carousel-item img{height:300px}.carousel-btn{font-size:2rem;padding:5px 12px}}
+  @media(max-width:480px){
+    .carousel-item img{height:200px}.title{font-size:1.6rem}
+    .extra-controls{right:20px}
+  }
+  </style>
+</head>
+<body>
+
+  <div class="carousel-container">
+    <h1 class="title">Carrusel Elegante de Mi Mascota 🐶</h1>
+
+    <!-- ====== CARRUSEL ====== -->
+    <div class="carousel" id="carousel">
+      <div class="carousel-inner">
+        <!-- Ajusta las rutas a tus fotos -->
+        <div class="carousel-item active"><img src="./Fotos/foto1.png"  alt="Foto 1 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto2.jpeg" alt="Foto 2 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto3.png"  alt="Foto 3 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto4.jpeg" alt="Foto 4 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto5.jpeg" alt="Foto 5 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto6.jpeg" alt="Foto 6 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto7.jpeg" alt="Foto 7 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto8.jpeg" alt="Foto 8 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto9.jpeg" alt="Foto 9 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto10.jpeg" alt="Foto 10 de mi mascota"></div>
+        <div class="carousel-item"><img src="./Fotos/foto11.jpeg" alt="Foto 11 de mi mascota"></div>
+      </div>
+
+      <!-- Flechas -->
+      <button class="carousel-btn prev" aria-label="Anterior">&#10094;</button>
+      <button class="carousel-btn next" aria-label="Siguiente">&#10095;</button>
+
+      <!-- Dots -->
+      <div class="carousel-indicators" id="carousel-indicators"></div>
+
+      <!-- Botones extra -->
+      <div class="extra-controls">
+        <button class="extra-btn" id="playPauseBtn" aria-label="Pausar">&#10074;&#10074;</button>
+        <button class="extra-btn" id="fullscreenBtn" aria-label="Pantalla completa">&#x26F6;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======  SCRIPTS  ====== -->
+  <script>
+  document.addEventListener("DOMContentLoaded",()=>{
+
+    const carousel            = document.getElementById("carousel");
+    const inner               = carousel.querySelector(".carousel-inner");
+    const items               = inner.querySelectorAll(".carousel-item");
+    const indicatorsContainer = document.getElementById("carousel-indicators");
+    const prevBtn             = carousel.querySelector(".prev");
+    const nextBtn             = carousel.querySelector(".next");
+    const playPauseBtn        = document.getElementById("playPauseBtn");
+    const fullscreenBtn       = document.getElementById("fullscreenBtn");
+
+    let currentIndex = 0;
+    const total      = items.length;
+    let intervalId;
+    const intervalMs = 3000;
+    let isPlaying    = true;
+
+    /* ========== Indicadores dinámicos ========== */
+    for(let i=0;i<total;i++){
+      const dot=document.createElement("button");
+      dot.setAttribute("aria-label",`Ir a la foto ${i+1}`);
+      if(i===0)dot.classList.add("active");
+      dot.addEventListener("click",()=>{goTo(i);resetAutoplay()});
+      indicatorsContainer.appendChild(dot);
+    }
+    const dots=[...indicatorsContainer.children];
+
+    /* ========== Funciones básicas ========== */
+    const goTo = index=>{
+      items[currentIndex].classList.remove("active");
+      dots[currentIndex].classList.remove("active");
+
+      currentIndex=(index+total)%total;
+
+      items[currentIndex].classList.add("active");
+      dots[currentIndex].classList.add("active");
+    };
+    const next = ()=>goTo(currentIndex+1);
+    const prev = ()=>goTo(currentIndex-1);
+
+    /* ========== Autoplay ========== */
+    const startAutoplay = ()=>{
+      intervalId=setInterval(next,intervalMs);
+      playPauseBtn.innerHTML="&#10074;&#10074;"; // || icono
+      isPlaying=true;
+    };
+    const stopAutoplay = ()=>{
+      clearInterval(intervalId);
+      playPauseBtn.innerHTML="&#9658;"; // ► icono
+      isPlaying=false;
+    };
+    const resetAutoplay = ()=>{stopAutoplay();startAutoplay()};
+
+    /* ========== Eventos flechas y dots ========== */
+    nextBtn.addEventListener("click",()=>{next(); resetAutoplay()});
+    prevBtn.addEventListener("click",()=>{prev(); resetAutoplay()});
+
+    /* ========== Play/Pause btn ========== */
+    playPauseBtn.addEventListener("click",()=>{
+      isPlaying?stopAutoplay():startAutoplay();
+    });
+
+    /* ========== Pausar con mouse encima ========== */
+    carousel.addEventListener("mouseenter",stopAutoplay);
+    carousel.addEventListener("mouseleave",()=>{if(!isPlaying) return; startAutoplay()});
+
+    /* ========== Pantalla completa ========== */
+    const requestFS  = el=> el.requestFullscreen ? el.requestFullscreen() :
+                                   el.webkitRequestFullscreen ? el.webkitRequestFullscreen() :
+                                   el.msRequestFullscreen && el.msRequestFullscreen();
+    const exitFS     = ()=> document.exitFullscreen && document.exitFullscreen();
+
+    const toggleFullscreen = ()=>{
+      if(!document.fullscreenElement){
+        // mostramos la imagen activa a pantalla completa
+        requestFS(items[currentIndex].querySelector("img"));
+      }else{ exitFS() }
+    };
+
+    fullscreenBtn.addEventListener("click",toggleFullscreen);
+
+    // También al hacer click en la imagen
+    items.forEach(it=>{
+      const img=it.querySelector("img");
+      img.addEventListener("click",toggleFullscreen);
+    });
+
+    /* ========== Iniciar ========== */
+    startAutoplay();
+  });
+  </script>
+</body>
+</html>
