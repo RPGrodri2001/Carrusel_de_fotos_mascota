@@ -48,11 +48,11 @@ class ElegantCarousel {
         
         // Datos de las fotos
         this.photoData = [
-            { src: '/Fotos/foto13.jpeg', title: 'Aqui todo empezó ❤', description: 'Cuando llegaste' }, //foto 1
-            { src: '/Fotos/foto2.jpeg', title: 'Sonrisas Compartidas', description: 'Tu sonrisa ilumina mi día ✨' }, //2
-            { src: '/Fotos/foto3.png', title: 'Amor perruno', description: 'Cada momento contigo es perfecto 💕' },  //3
-            { src: '/Fotos/foto4.jpeg', title: 'Locuras compartidas', description: 'Aprendiendo trucos' },      //4
-            { src: '/Fotos/foto5.jpeg', title: 'Días de descanso', description: 'Contigo todo es mejor' },          //5
+            { src: '../Fotos/foto13.jpeg', title: 'Aqui todo empezó ❤', description: 'Cuando llegaste' }, //foto 1
+            { src: '../Fotos/foto2.jpeg', title: 'Sonrisas Compartidas', description: 'Tu sonrisa ilumina mi día ✨' }, //2
+            { src: '../Fotos/foto3.png', title: 'Amor perruno', description: 'Cada momento contigo es perfecto 💕' },  //3
+            { src: '../Fotos/foto4.jpeg', title: 'Locuras compartidas', description: 'Aprendiendo trucos' },      //4
+            { src: '../Fotos/foto5.jpeg', title: 'Días de descanso', description: 'Contigo todo es mejor' },          //5
             { src: '/Fotos/foto6.jpeg', title: 'comando enseñados', description: 'haciendose el muertito 😁' },        //6
             { src: '/Fotos/foto7.jpeg', title: 'Regalos del Corazón', description: 'Eres el mejor regalo de mi vida 🎁' },
             { src: '/Fotos/foto8.jpeg', title: 'Momentos divertidos', description: 'Mi negro con sus locuras' },
@@ -62,11 +62,11 @@ class ElegantCarousel {
             { src: '/Fotos/foto12.jpeg', title: 'Mi rootwailer', description: 'Mi mejor amigo del alma ' },
             { src: '/Fotos/foto1.png', title: 'Momento inolvidable', description: 'Donde posabas alado mio' },
             { src: '/Fotos/foto14.jpeg', title: 'Zeus Alberto', description: 'solo dormia jaja' },
-            { src: '/Fotos/foto15.jpeg', title: 'Locuras', description: 'por comer' },
-            { src: '/Fotos/foto16.jpeg', title: 'relajado', description: 'rootwailer' },
-            { src: '/Fotos/foto17.jpeg', title: 'Impredecible', description: 'rootwailer' },
-            { src: '/Fotos/foto18.jpeg', title: 'Amigo eterno', description: 'rootwailer' },
-            { src: '/Fotos/foto19.jpeg', title: 'convenciendome', description: 'para entrar a casa 😂' }
+            { src: './Fotos/foto15.jpeg', title: 'Locuras', description: 'por comer' },
+            { src: './Fotos/foto16.jpeg', title: 'relajado', description: 'rootwailer' },
+            { src: './Fotos/foto17.jpeg', title: 'Impredecible', description: 'rootwailer' },
+            { src: './Fotos/foto18.jpeg', title: 'Amigo eterno', description: 'rootwailer' },
+            { src: './Fotos/foto19.jpeg', title: 'convenciendome', description: 'para entrar a casa 😂' }
         ];
         
         console.log('✅ Elementos inicializados');
